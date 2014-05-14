@@ -49,7 +49,7 @@ let etoiles =  [(ref 1,ref 0);(ref 2,ref 0);(ref 3,ref 0);(ref 4,ref 0);
                  (ref (-3),ref 3);(ref (-3),ref 4);
                  (ref 4,ref 4);(ref 5,ref 4)];;
 (*Rochers *)
-let rochers =  [(ref 1,ref 5);(ref 4,ref 9);(ref 5,ref 8);(ref (-2),ref 8);(ref (-3),ref 2);(ref (-1),ref 0);(ref 6,ref 1);(ref 5,ref 1)];;
+let rochers =  [(ref 4,ref 9);(ref 5,ref 8);(ref (-2),ref 8);(ref (-3),ref 2);(ref (-1),ref 0);(ref 6,ref 1);(ref 5,ref 1)];;
 
 
 (* Position du personnage*)
