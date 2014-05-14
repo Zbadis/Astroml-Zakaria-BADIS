@@ -1,22 +1,24 @@
 open Directions;;
 module Images = Images50;;
-let perso = Images.rebot;;
+let perso = Images.robot;;
 
 (* Graphics.close_graph ();; *)
 (* Fenetre principale*)
 Graphics.open_graph " 500x550";;
+(*Nom de la fênetre *)
+Graphics.set_window_title "Astroml-BZ :)";;
 Graphics.set_color (Graphics.rgb 255 255 255);;
 Graphics.fill_rect 0 0 500 500;
 
-(* La banière de score et autonomie*)
+(* La bannière de score et autonomie*)
 Graphics.set_color (Graphics.rgb 200 173 127);;
 Graphics.moveto 50 520;;
 Graphics.fill_rect 0 500 500 50;;
 Graphics.set_color (Graphics.rgb 255 255 255);;
 
-Graphics.draw_string "Score : 2500 ";;(*Prochainement afficher le score réel*)
+Graphics.draw_string "Score :  ";;(*Prochainement afficher le score réel*)
 Graphics.moveto 300 520;;
-Graphics.draw_string "Autonomie : 30 % ";; (*Prochainement afficher l'autonomie réel*)
+Graphics.draw_string "Autonomie :  ";; (*Prochainement afficher l'autonomie réel*)
 
 (*recolorer la fenetre principale *)
 Graphics.set_color (Graphics.rgb 0 0 0);;
@@ -41,8 +43,8 @@ Graphics.remember_mode false;;
 let afficher img (i,j) =
   Dessiner.dessiner_image img (!j * 50) (300 - !i * 50);;
 
-(* Position des bateries*)
-let bateries =  [(ref 6,ref 9);(ref 6,ref 0);(ref (-3),ref 0);(ref (-3),ref 9)];;
+(* Position des batteries*)
+let batteries =  [(ref 6,ref 9);(ref 6,ref 0);(ref (-3),ref 0);(ref (-3),ref 9)];;
 (* étoiles*)
 let etoiles =  [(ref 1,ref 0);(ref 2,ref 0);(ref 3,ref 0);(ref 4,ref 0);
                  (ref 0,ref 9);(ref 1,ref 9);(ref 2,ref 9);(ref 3,ref 9);
@@ -60,7 +62,7 @@ let afficher_decor () =
 let afficher_perso() =
   afficher perso (perso_i,perso_j);;
 let afficher_mobiles () =
-  List.iter (afficher Images.baterie) bateries;
+  List.iter (afficher Images.batterie) batteries;
   List.iter (afficher Images.star) etoiles;
   List.iter (afficher Images.rock) rochers;
   afficher_perso ();;
@@ -72,7 +74,7 @@ let deplacer direction =
     | S -> if(!perso_i + 1 < 7) then  perso_i := !perso_i + 1
     | N -> if(!perso_i - 1 > -4) then  perso_i := !perso_i - 1
   in
-  let ramasser_baterie (bi,bj) =
+  let ramasser_batterie (bi,bj) =
     if (!bi,!bj) = (!perso_i,!perso_j) then
       begin
         autonomie := !autonomie + 20; 
@@ -105,7 +107,7 @@ let deplacer direction =
         autonomie := !autonomie - 10;
       end
   in
-  List.iter ramasser_baterie bateries;
+  List.iter ramasser_batterie batteries;
   List.iter ramasser_etoile etoiles;
   List.iter toucher_rocher rochers;
   afficher_decor ();
