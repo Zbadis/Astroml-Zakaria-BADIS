@@ -1,33 +1,34 @@
 open Directions;;
 module Images = Images50;;
 let perso = Images.robot;;
+module G = Graphics;;
 
-(* Graphics.close_graph ();; *)
+(* G.close_graph ();; *)
 
 (* Fenetre principale*)
-Graphics.open_graph " 500x550";;
+G.open_graph " 500x550";;
 
 (*Nom de la fênetre *)
-Graphics.set_window_title "Astroml-BZ :)";;
+G.set_window_title "Astroml-BZ :)";;
 
-Graphics.set_color (Graphics.rgb 255 255 255);;
-Graphics.fill_rect 0 0 500 500;
+G.set_color (G.rgb 255 255 255);;
+G.fill_rect 0 0 500 500;
 
 (* La bannière de l'aide*)
-Graphics.set_color (Graphics.rgb 200 173 127);;
-Graphics.fill_rect 0 500 500 50;;
-Graphics.set_color (Graphics.rgb 255 255 255);;
-Graphics.moveto 300 520;;
-Graphics.draw_string " Bonne partie :-) ";;
+G.set_color (G.rgb 200 173 127);;
+G.fill_rect 0 500 500 50;;
+G.set_color (G.rgb 255 255 255);;
+G.moveto 300 520;;
+G.draw_string " Bonne partie :-) ";;
 
-Graphics.moveto 20 530;;
-Graphics.draw_string "Aide : ramassez toutes les etoiles ";; 
+G.moveto 20 530;;
+G.draw_string "Aide : ramassez toutes les etoiles ";; 
 
-Graphics.moveto 20 515;;
-Graphics.draw_string "       sans vider votre batterie ";; 
+G.moveto 20 515;;
+G.draw_string "       sans vider votre batterie ";; 
 
 (*recolorer la grille *)
-Graphics.set_color (Graphics.rgb 0 0 0);;
+G.set_color (G.rgb 0 0 0);;
 
 (*Initialisation du score *)
 let score = ref 0;;
@@ -37,14 +38,14 @@ let autonomie = ref 45;;
 
 (* ************************************** *)
 let f i =
-  Graphics.draw_segments [|
+  G.draw_segments [|
       (50*i,0,50*i,500);
       (0,50*i,500,50*i)
      |];
 in
 List.iter f [1;2;3;4;5;6;7;8;9;10];;
 
-Graphics.remember_mode false;;
+G.remember_mode false;;
 
 let afficher img (i,j) =
   Dessiner.dessiner_image img (!j * 50) (300 - !i * 50);;
@@ -66,7 +67,7 @@ let rochers =  [(ref 4,ref 9);(ref 5,ref 8);(ref (-2),ref 8);(ref (-3),ref 2);(r
 let perso_i, perso_j = ref 1, ref 4;;
 
 let afficher_decor () =
-  Graphics.synchronize();;
+  G.synchronize();;
 let afficher_perso() =
   afficher perso (perso_i,perso_j);;
 let afficher_mobiles () =
@@ -122,7 +123,7 @@ let deplacer direction =
 			begin 
 			print_string "\n\n****** Dommage vous avez pérdu :( ******\n\n";
 			print_string "\n\n** La partie est fini, merci d'avoir joué **\n\n";
-			Graphics.close_graph ();
+			G.close_graph ();
 			end ;
 
   (* tester si le joueur à pris toute les étoiles => la partie est fini*)
@@ -130,7 +131,7 @@ let deplacer direction =
 			begin 
 			print_string "\n\n******* BRAVO VOUS AVEZ GAGNE :) ******\n\n";
 			print_string "\n\n** La partie est fini, merci d'avoir joué **\n\n";
-			Graphics.close_graph ();
+			G.close_graph ();
 			end ;
 
   print_string "Votre score : ";
