@@ -3,10 +3,13 @@ module Images = Images50;;
 let perso = Images.robot;;
 
 (* Graphics.close_graph ();; *)
+
 (* Fenetre principale*)
 Graphics.open_graph " 500x550";;
+
 (*Nom de la fênetre *)
 Graphics.set_window_title "Astroml-BZ :)";;
+
 Graphics.set_color (Graphics.rgb 255 255 255);;
 Graphics.fill_rect 0 0 500 500;
 
@@ -16,12 +19,14 @@ Graphics.fill_rect 0 500 500 50;;
 Graphics.set_color (Graphics.rgb 255 255 255);;
 Graphics.moveto 300 520;;
 Graphics.draw_string " Bonne partie :-) ";;
+
 Graphics.moveto 20 530;;
 Graphics.draw_string "Aide : ramassez toutes les etoiles ";; 
-Graphics.moveto 20 515;;
-Graphics.draw_string "       sans epuiser votre batterie ";; 
 
-(*recolorer la fenetre principale *)
+Graphics.moveto 20 515;;
+Graphics.draw_string "       sans vider votre batterie ";; 
+
+(*recolorer la grille *)
 Graphics.set_color (Graphics.rgb 0 0 0);;
 
 (*Initialisation du score *)
@@ -46,11 +51,13 @@ let afficher img (i,j) =
 
 (* Position des batteries*)
 let batteries =  [(ref 6,ref 9);(ref 6,ref 0);(ref (-3),ref 0);(ref (-3),ref 9);(ref 1,ref 0);];;
+
 (* étoiles*)
 let etoiles =  [(ref (-3),ref 5);(ref 2,ref 0);(ref 3,ref 0);(ref 4,ref 0);
                  (ref 0,ref 9);(ref 1,ref 9);(ref 2,ref 9);(ref 3,ref 9);
                  (ref (-3),ref 3);(ref (-3),ref 4);
                  (ref 4,ref 4);(ref 5,ref 4)];;
+
 (*Rochers *)
 let rochers =  [(ref 4,ref 9);(ref 5,ref 8);(ref (-2),ref 8);(ref (-3),ref 2);(ref (-1),ref 0);(ref 6,ref 1);(ref 5,ref 1)];;
 
@@ -68,6 +75,7 @@ let afficher_mobiles () =
   List.iter (afficher Images.rock) rochers;
   afficher_perso ();;
 
+(* gérer les déplacements *)
 let deplacer direction =
   let () = match direction with
     | E -> if(!perso_j + 1 < 10) then perso_j := !perso_j + 1  ; autonomie := !autonomie - 5; 
@@ -94,7 +102,7 @@ let deplacer direction =
       end
   in
 
- (* Si le joueur touche un rocher il reste a sa place*)
+ (* Si le joueur touche un rocher il reste à sa place*)
  let toucher_rocher (ri,rj) =
     if (!ri,!rj) = (!perso_i,!perso_j) then
       begin
@@ -116,7 +124,8 @@ let deplacer direction =
 			print_string "\n\n** La partie est fini, merci d'avoir joué **\n\n";
 			Graphics.close_graph ();
 			end ;
-  (* tester si le joueur a pris toute les étoiles => la partie est fini*)
+
+  (* tester si le joueur à pris toute les étoiles => la partie est fini*)
   if(!score = 120 & !autonomie > 0) then 
 			begin 
 			print_string "\n\n******* BRAVO VOUS AVEZ GAGNE :) ******\n\n";
@@ -139,6 +148,12 @@ let jouer p = Interprete.run p deplacer;;
 print_string "          *** космонавт ***\n";;
 print_string "       Salut jeune astronaute\n";;
 print_string "\n";;
-(* TODO trouver le nom de l'auteur *)
+
+(* le nom de l'auteur (images : robot et batterie) *)
+(* License  : Public Domain CC0
+   Source   : pixabay.com
+   Release  : Unknown*)
+
 print_string " Crédit image : lostgarden.com\n";;
+print_string "		      pixabay.com \n";;
 afficher_mobiles ();;
