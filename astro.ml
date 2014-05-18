@@ -1,7 +1,8 @@
 open Directions;;
 module Images = Images50;;
-let perso = Images.robot;;
 module G = Graphics;;
+let perso = Images.robot;;
+
 
 (* G.close_graph ();; *)
 
